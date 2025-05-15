@@ -2,12 +2,10 @@ runs:
   using: docker
   image: 'Dockerfile'
   env:
-    # Map the openai-key input to the environment variable your code expects
+    # May the the docker image
     OPENAI_API_KEY: ${{ inputs.openai-key }}
-    # If you want to make the model configurable:
-    OPENAI_MODEL: ${{ inputs.model }}
-    # GitHub provides GITHUB_TOKEN automatically; map it for your GitHubClient
+    
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    # Make the PR number & repo available to your code
+    
     PR_NUMBER: ${{ github.event.pull_request.number }}
     GITHUB_REPOSITORY: ${{ github.repository }}
