@@ -18,7 +18,7 @@ class AzureAIClient:
             endpoint=endpoint,
             credential=AzureKeyCredential(api_key)
         )
-        self.model = os.getenv("AZURE_MODEL", "DeepSeek-V3-0324")
+        self.model = os.getenv("INPUT_AZURE_MODEL", "DeepSeek-V3-0324")
 
     def analyze_diff(self, diff: str, max_tokens: int = 2048) -> str:
         try:
