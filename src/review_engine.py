@@ -28,18 +28,23 @@ class ReviewEngine:
                 if current_finding:
                     findings.append(current_finding)
                 parts = line[3:].split(']', 1)
+                if len(parts) < 2:
+                    continue  # Skip malformed lines
+                    
                 severity_category = parts[0].split(' ', 1)
                 current_finding = {
                     'severity': severity_category[0],
-                    'category': severity_category[1].strip(':'),
+                    'category': severity_category[1].strip(':') if len(severity_category) > 1 else "General",
                     'description': parts[1].strip(),
                     'impact': '',
                     'fix': ''
                 }
             elif line.startswith('- Impact:'):
-                current_finding['impact'] = line.split(':', 1)[1].strip()
+                if current_finding:
+                    current_finding['impact'] = line.split(':', 1)[1].strip()
             elif line.startswith('- Suggested fix:'):
-                current_finding['fix'] = line.split(':', 1)[1].strip()
+                if current_finding:
+                    current_finding['fix'] = line.split(':', 1)[1].strip()
 
         if current_finding:
             findings.append(current_finding)

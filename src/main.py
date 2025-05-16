@@ -21,15 +21,10 @@ def main():
 
         # Generate review with the AI engine
         raw_analysis = review_engine.generate_review(diff)
-        findings = review_engine.parse_findings(raw_analysis)
 
         # Post the comments on the PR
-        if findings:
-            comment = "🔍 **AI Code Review Findings**\n\n" + "\n".join(
-                f"**{f['severity']} {f['category']}**: {f['description']}\n"
-                f"🛠️ *Suggested Fix*: {f['fix']}"
-                for f in findings
-            )
+        if raw_analysis and not raw_analysis.startswith("⚠️"):
+            comment = "🔍 **AI Code Review Findings**\n\n" + raw_analysis
         else:
             comment = "✅ AI review completed - no significant issues found"
 
