@@ -10,8 +10,8 @@ class AzureAIClientError(Exception):
 
 class AzureAIClient:
     def __init__(self):
-        endpoint = os.getenv("AZURE_ENDPOINT")
-        api_key  = os.getenv("AZURE_API_KEY")
+        endpoint = os.getenv("AZURE_ENDPOINT") or os.getenv("INPUT_AZURE_ENDPOINT")
+        api_key  = os.getenv("AZURE_API_KEY") or os.getenv("INPUT_AZURE_API_KEY")
         if not endpoint or not api_key:
             raise AzureAIClientError("Missing AZURE_ENDPOINT or AZURE_API_KEY")
         self.client = ChatCompletionsClient(
