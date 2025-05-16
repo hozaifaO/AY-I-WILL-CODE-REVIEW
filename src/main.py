@@ -2,7 +2,7 @@ import logging
 from src.github_client import GitHubClient, GitHubClientError
 from src.openai_client import OpenAIClient, OpenAIClientError
 from src.review_engine import ReviewEngine
-
+from src.AzureAIClient import AzureAIClient, AzureAIClientError
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
@@ -12,7 +12,7 @@ def main():
     try:
         # Initialize the clients
         gh_client = GitHubClient()
-        ai_client = OpenAIClient()
+        ai_client =  AzureAIClient() #OpenAIClient()
         review_engine = ReviewEngine(ai_client)
 
         # Get the PR diff
@@ -38,7 +38,7 @@ def main():
 
         logging.info("AI review completed successfully")
 
-    except (GitHubClientError, OpenAIClientError) as e:
+    except (GitHubClientError, AzureAIClientError) as e:
         logging.error(f"Review failed: {str(e)}")
         gh_client.post_comment("❌ AI review failed - check action logs")
         exit(1)
