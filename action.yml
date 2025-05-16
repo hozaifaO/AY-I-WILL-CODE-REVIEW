@@ -1,15 +1,28 @@
 name: 'AI Code Reviewer'
-description: 'Automated code review using AI'
+description: 'Automated code review using Azure AI Foundry (DeepSeek-V3)'
 branding:
   icon: 'robot'
   color: 'blue'
 
 inputs:
-  openai-key:
-    description: 'OpenAI API key'
+  # Azure AI Foundry settings
+  azure-endpoint:
+    description: 'Azure AI Foundry endpoint URL'
     required: true
+  azure-api-key:
+    description: 'Azure AI Foundry API key'
+    required: true
+  azure-model:
+    description: 'Azure-deployed model name'
+    default: 'DeepSeek-V3-0324'
+    required: false
+
+  # (Optional) OpenAI fallback
+  openai-key:
+    description: 'OpenAI API key (optional if using Azure)'
+    required: false
   model:
-    description: 'OpenAI model to use'
+    description: 'OpenAI model to use (optional)'
     default: 'gpt-4-turbo-preview'
     required: false
 
