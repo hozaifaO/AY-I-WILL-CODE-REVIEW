@@ -23,9 +23,22 @@ class AzureAIClient:
     def analyze_diff(self, diff: str, max_tokens: int = 2048) -> str:
         try:
             from azure.ai.inference.models import SystemMessage, UserMessage
+            system_prompt = """You are a senior software engineer reviewing code changes.
+Analyze this diff considering:
+1. Security vulnerabilities
+2. Logic errors
+3. Code smells
+4. Architectural consistency
+5. Best practices
+
+Format findings as:
+- [Critical/High/Medium/Low] [Category]: Brief description
+  - Impact: 
+  - Suggested fix:"""
+
             response = self.client.complete(
                 messages=[
-                    SystemMessage(content="You are a senior software engineer reviewing code changes."),
+                    SystemMessage(content=system_prompt),
                     UserMessage(content=f"Code diff:\n{diff}")
                 ],
                 model=self.model,
