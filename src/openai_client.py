@@ -10,7 +10,7 @@ class OpenAIClientError(Exception):
 
 class OpenAIClient:
     def __init__(self):
-        api_key = os.getenv("OPENAI_API_KEY") or os.getenv("INPUT_OPENAI_API_KEY")
+        api_key = os.getenv("OPENAI_API_KEY") or os.getenv("INPUT_OPENAI_API-KEY") or os.getenv("INPUT_OPENAI_API_KEY")
         if not api_key:
             raise OpenAIClientError("Missing OPENAI_API_KEY")
         self.client = OpenAI(api_key=api_key)

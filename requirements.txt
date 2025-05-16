@@ -2,3 +2,5 @@ openai
 python-dotenv
 requests
 unidiff
+azure-ai-inference
+azure-core
